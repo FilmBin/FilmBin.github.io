@@ -115,3 +115,36 @@ img{display:block;max-width:100%}
 .events-back:hover{border-color:var(--red)}.event-navigation h3{margin:0;font-size:22px;line-height:1.3}
 @media(max-width:940px){.event-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:550px){.event-grid{gap:15px}.event-title{font-size:14px}.event-cover{aspect-ratio:4/5}.event-navigation h3{font-size:18px}}
+
+
+/* Radix Icons (WorkOS, MIT), scoped to FilmBin navigation/actions. */
+.ui-icon{display:inline-block;width:16px;height:16px;flex:0 0 16px;vertical-align:-3px;background-color:currentColor;-webkit-mask-image:var(--radix-icon);mask-image:var(--radix-icon);-webkit-mask-position:center;mask-position:center;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:contain;mask-size:contain;pointer-events:none}
+.icon-dashboard{--radix-icon:url("./assets/icons/dashboard.svg")}
+.icon-upload{--radix-icon:url("./assets/icons/upload.svg")}
+.icon-view-grid{--radix-icon:url("./assets/icons/view-grid.svg")}
+.icon-star{--radix-icon:url("./assets/icons/star.svg")}
+.icon-gear{--radix-icon:url("./assets/icons/gear.svg")}
+.icon-activity-log{--radix-icon:url("./assets/icons/activity-log.svg")}
+.icon-external-link{--radix-icon:url("./assets/icons/external-link.svg")}
+.icon-exit{--radix-icon:url("./assets/icons/exit.svg")}
+.icon-plus{--radix-icon:url("./assets/icons/plus.svg")}
+.icon-pencil-2{--radix-icon:url("./assets/icons/pencil-2.svg")}
+.icon-eye-open{--radix-icon:url("./assets/icons/eye-open.svg")}
+.icon-check-circled{--radix-icon:url("./assets/icons/check-circled.svg")}
+.icon-eye-closed{--radix-icon:url("./assets/icons/eye-closed.svg")}
+.icon-trash{--radix-icon:url("./assets/icons/trash.svg")}
+.icon-magnifying-glass{--radix-icon:url("./assets/icons/magnifying-glass.svg")}
+.icon-filter{--radix-icon:url("./assets/icons/filter.svg")}
+.icon-caret-sort{--radix-icon:url("./assets/icons/caret-sort.svg")}
+.icon-checkbox{--radix-icon:url("./assets/icons/checkbox.svg")}
+.icon-image{--radix-icon:url("./assets/icons/image.svg")}
+.icon-check{--radix-icon:url("./assets/icons/check.svg")}
+.icon-cross-2{--radix-icon:url("./assets/icons/cross-2.svg")}
+.icon-chevron-left{--radix-icon:url("./assets/icons/chevron-left.svg")}
+.icon-chevron-right{--radix-icon:url("./assets/icons/chevron-right.svg")}
+.icon-lock-closed{--radix-icon:url("./assets/icons/lock-closed.svg")}
+.icon-arrow-left{--radix-icon:url("./assets/icons/arrow-left.svg")}
+.icon-reload{--radix-icon:url("./assets/icons/reload.svg")}
+.icon-home{--radix-icon:url("./assets/icons/home.svg")}
+.icon-arrow-right{--radix-icon:url("./assets/icons/arrow-right.svg")}
+.owner-link .ui-icon,.nav-gallery .ui-icon{width:14px;height:14px;flex-basis:14px;margin-right:5px}.search-label .ui-icon{width:17px;height:17px;flex-basis:17px}.events-back .ui-icon,.viewer-details a .ui-icon{margin-right:6px}.viewer-bar button .ui-icon{margin-left:7px}.event-tile .ui-icon{width:15px;height:15px}

@@ -11,9 +11,9 @@
   <title>FilmBin™ | Custom Movie Flyers</title>
   <link rel="icon" type="image/png" href="./assets/brand/favicon-transparent.png?v=2">
   <link rel="apple-touch-icon" href="./assets/brand/apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles.css?v=0577ac2f8308">
+  <link rel="stylesheet" href="./styles.css?v=e3b2dd2d2418">
   <script src="./config.js?v=7d7df4828145" defer></script>
-  <script src="./site.js?v=3e0cc94c6f53" defer></script>
+  <script src="./site.js?v=668c3277db2f" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#gallery">Skip to flyer gallery</a>
@@ -23,8 +23,8 @@
         <img src="./assets/brand/logo.svg" alt="FilmBin" width="1980" height="467"><sup class="brand-trademark" aria-hidden="true">™</sup>
       </a>
       <nav aria-label="Main navigation" class="site-nav">
-        <a href="#gallery" class="nav-gallery">Flyer gallery</a>
-        <a id="owner-link" class="owner-link" href="./owner.html">Owner Login <span aria-hidden="true">↗</span></a>
+        <a href="#gallery" class="nav-gallery"><span class="ui-icon icon-view-grid" aria-hidden="true"></span> Flyer gallery</a>
+        <a id="owner-link" class="owner-link" href="./owner.html"><span class="ui-icon icon-lock-closed" aria-hidden="true"></span> Owner Login</a>
       </nav>
     </div>
   </header>
@@ -51,7 +51,7 @@
         </div>
         <div class="toolbar-tools">
           <label class="search-label">
-            <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg>
+            <span class="ui-icon icon-magnifying-glass" aria-hidden="true"></span>
             <span class="sr-only">Search flyers</span>
             <input id="search" type="search" placeholder="Search flyers" autocomplete="off">
           </label>
@@ -62,7 +62,7 @@
       </div>
 
       <div id="event-navigation" class="event-navigation" hidden>
-        <button type="button" id="events-back" class="events-back">← All special events</button>
+        <button type="button" id="events-back" class="events-back"><span class="ui-icon icon-arrow-left" aria-hidden="true"></span> ← All special events</button>
         <h3 id="active-event-name"></h3>
       </div>
       <div id="event-grid" class="event-grid" aria-label="Special Event collections" hidden></div>
@@ -84,14 +84,14 @@
 
   <dialog id="flyer-dialog" class="flyer-dialog" aria-labelledby="dialog-title">
     <div class="viewer">
-      <div class="viewer-bar"><span>FILMBIN / FLYER VIEWER</span><button type="button" id="dialog-close" aria-label="Close flyer viewer">Close <span aria-hidden="true">×</span></button></div>
+      <div class="viewer-bar"><span>FILMBIN / FLYER VIEWER</span><button type="button" id="dialog-close" aria-label="Close flyer viewer">Close <span class="ui-icon icon-cross-2" aria-hidden="true"></span></button></div>
       <div class="viewer-body">
         <div class="viewer-image"><img id="dialog-img" alt=""></div>
         <div class="viewer-details">
           <p id="dialog-category" class="viewer-category"></p>
           <h2 id="dialog-title"></h2>
           <p id="dialog-description"></p>
-          <a id="dialog-original" href="#" target="_blank" rel="noopener noreferrer">View original image ↗</a>
+          <a id="dialog-original" href="#" target="_blank" rel="noopener noreferrer"><span class="ui-icon icon-external-link" aria-hidden="true"></span> View original image</a>
           <small>Shown in full. Original aspect ratio.</small>
         </div>
       </div>

@@ -50,10 +50,10 @@
     button.setAttribute('aria-label', `View ${flyer.title} in full`);
     const frame = make('div', 'poster-frame');
     const img = new Image();
-    img.src = imageUrl(flyer.image_id);
     img.alt = `Custom movie flyer artwork: ${flyer.title}`;
     img.loading = 'lazy';
     img.decoding = 'async';
+    img.src = imageUrl(flyer.image_id);
     frame.append(img);
     const info = make('div', 'poster-info');
     const mainInfo = make('div', 'poster-info-text');
