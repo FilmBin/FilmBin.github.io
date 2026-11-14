@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111111">
+  <meta name="description" content="FilmBin is a personal gallery of original custom movie flyers. Browse the artwork and view every design uncropped and in full.">
+  <meta property="og:title" content="FilmBin | Custom Movie Flyers">
+  <meta property="og:description" content="A gallery of custom movie flyers — the designs come first.">
+  <meta property="og:image" content="./assets/brand/social-preview.png">
+  <title>FilmBin — Custom Movie Flyers</title>
+  <link rel="icon" type="image/png" href="./assets/brand/favicon-transparent.png?v=2">
+  <link rel="apple-touch-icon" href="./assets/brand/apple-touch-icon.png">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./config.js" defer></script>
+  <script src="./site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#gallery">Skip to flyer gallery</a>
+  <header class="site-header" id="top">
+    <div class="site-width header-inner">
+      <a class="brand" href="#top" aria-label="FilmBin homepage">
+        <img src="./assets/brand/logo.svg" alt="FilmBin" width="1980" height="467">
+      </a>
+      <nav aria-label="Main navigation" class="site-nav">
+        <a href="#gallery" class="nav-gallery">Flyer gallery</a>
+        <a id="owner-link" class="owner-link" href="./owner.html">Owner Login <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro site-width" aria-labelledby="hero-heading">
+      <p class="kicker"><span class="kicker-line" aria-hidden="true"></span> THE FILMBIN GALLERY</p>
+      <h1 id="hero-heading">Custom movie <span>flyers.</span></h1>
+      <p id="hero-description" class="intro-description">A collection of original, custom-designed movie flyers, marathons and special-event artwork. The artwork is the point — browse it in full, exactly as designed.</p>
+    </section>
+
+    <section id="gallery" class="gallery site-width" aria-labelledby="gallery-heading">
+      <div class="gallery-heading-row">
+        <h2 id="gallery-heading">The flyer wall<span class="heading-period">.</span></h2>
+        <p id="results-count" class="results-count" role="status" aria-live="polite">Loading artwork…</p>
+      </div>
+      <div class="gallery-toolbar">
+        <div class="filters" role="group" aria-label="Filter flyers by type">
+          <button type="button" class="filter active" data-filter="all" aria-pressed="true">All flyers</button>
+          <button type="button" class="filter" data-filter="Movie Flyer" aria-pressed="false">Movies</button>
+          <button type="button" class="filter" data-filter="Marathon" aria-pressed="false">Marathons</button>
+          <button type="button" class="filter" data-filter="Special Event" aria-pressed="false">Special events</button>
+          <button type="button" class="filter" data-filter="Other" aria-pressed="false">Other</button>
+        </div>
+        <div class="toolbar-tools">
+          <label class="event-filter" id="event-filter-wrap" hidden><span class="sr-only">Special event</span><select id="event-filter"><option value="all">All events</option></select></label>
+          <label class="search-label">
+            <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg>
+            <span class="sr-only">Search flyers</span>
+            <input id="search" type="search" placeholder="Search flyers" autocomplete="off">
+          </label>
+          <label class="sort-label"><span class="sr-only">Sort flyers</span>
+            <select id="sort"><option value="title" selected>A–Z</option><option value="newest">Newest first</option><option value="oldest">Oldest first</option></select>
+          </label>
+        </div>
+      </div>
+
+      <div id="flyer-grid" class="poster-grid" aria-label="Custom movie flyer gallery"></div>
+      <div id="empty-state" class="empty-state" hidden>
+        <h3 id="empty-heading">Your flyer collection will appear here.</h3>
+        <p id="empty-description">Once you publish your custom flyers through Owner Access, the images will fill this gallery. No demo posters or placeholders are shown as real artwork.</p>
+      </div>
+    </section>
+    <div id="site-sections" class="editorial-sections site-width" hidden aria-label="Additional information"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-width footer-inner">
+      <a class="footer-brand" href="#top" aria-label="FilmBin home"><img src="./assets/brand/footer-logo.png" alt="FilmBin" width="1980" height="467"></a>
+      <p id="footer-note">A personal collection of original custom flyer artwork.</p>
+      <span>© <span id="year"></span> FILMBIN</span>
+    </div>
+  </footer>
+
+  <dialog id="flyer-dialog" class="flyer-dialog" aria-labelledby="dialog-title">
+    <div class="viewer">
+      <div class="viewer-bar"><span>FILMBIN / FLYER VIEWER</span><button type="button" id="dialog-close" aria-label="Close flyer viewer">Close <span aria-hidden="true">×</span></button></div>
+      <div class="viewer-body">
+        <div class="viewer-image"><img id="dialog-img" alt=""></div>
+        <div class="viewer-details">
+          <p id="dialog-category" class="viewer-category"></p>
+          <h2 id="dialog-title"></h2>
+          <p id="dialog-description"></p>
+          <a id="dialog-original" href="#" target="_blank" rel="noopener noreferrer">View original image ↗</a>
+          <small>Shown in full. Original aspect ratio.</small>
+        </div>
+      </div>
+    </div>
+  </dialog>
+</body>
+</html>
