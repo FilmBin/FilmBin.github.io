@@ -113,17 +113,6 @@
   $('search').addEventListener('input', event => { state.query = event.target.value.trim().toLowerCase(); render(); });
   $('sort').addEventListener('change', event => { state.sort = event.target.value; render(); });
 
-  function renderSections(sections) {
-    const container = $('site-sections');
-    const published = Array.isArray(sections) ? sections.filter(s => s && typeof s.title === 'string' && s.title.trim()) : [];
-    container.hidden = published.length === 0;
-    container.replaceChildren(...published.map(section => {
-      const block = make('section', 'editorial-section');
-      block.append(make('h2', '', section.title), make('p', '', section.body || ''));
-      return block;
-    }));
-  }
-
   async function load() {
     if (!configured) {
       state.flyers = [];
@@ -141,7 +130,6 @@
       if (data.settings?.hero_title) $('hero-heading').textContent = data.settings.hero_title;
       if (data.settings?.hero_description) $('hero-description').textContent = data.settings.hero_description;
       if (data.settings?.footer_note) $('footer-note').textContent = data.settings.footer_note;
-      renderSections(data.sections);
       render();
     } catch (error) {
       console.error('Could not load FilmBin gallery:', error);
