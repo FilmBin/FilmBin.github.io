@@ -5,7 +5,7 @@
   const apiBase = String(cfg.apiBase || '').replace(/\/$/, '');
   const configured = /^https?:\/\//.test(apiBase) && !apiBase.includes('YOUR-ACCOUNT');
   const imageUrl = id => apiBase + '/api/media/' + encodeURIComponent(id);
-  const state = { flyers: [], category: 'all', event: 'all', query: '', sort: 'title' };
+  const state = { flyers: [], events: [], category: 'all', event: 'all', query: '', sort: 'title' };
   const categories = {
     'Movie Flyer': 'Movie flyer',
     'Marathon': 'Marathon flyer',
@@ -66,10 +66,59 @@
     return article;
   }
 
+  // Cover-only tiles are shown exclusively in Special events, never in the main flyer wall.
+  // Existing named event flyers work before the owner adds a custom cover.
+  function eventCollections() {
+    const groups = new Map();
+    for (const f of state.flyers) {
+      if (categoryOf(f) !== 'Special Event' || !String(f.event_name || '').trim()) continue;
+      const name = f.event_name.trim(), key = name.toLocaleLowerCase();
+      if (!groups.has(key)) groups.set(key, {name, flyers:[]});
+      groups.get(key).flyers.push(f);
+    }
+    for (const metadata of state.events) {
+      const group = groups.get(String(metadata.name||'').trim().toLocaleLowerCase());
+      if(group) {group.name = metadata.name; group.description = metadata.description||''; group.cover_image_id = metadata.cover_image_id;}
+    }
+    return [...groups.values()].sort((a,b)=>a.name.localeCompare(b.name,undefined,{sensitivity:'base',numeric:true}));
+  }
+  function makeEventTile(event) {
+    const button = make('button','event-tile'); button.type='button';
+    button.setAttribute('aria-label',`Open ${event.name} event collection with ${event.flyers.length} flyers`);
+    const artwork=make('div','event-cover');
+    const img=new Image();
+    img.loading='lazy'; img.decoding='async';
+    img.src=imageUrl(event.cover_image_id || event.flyers[0].image_id);
+    img.alt=event.cover_image_id ? `${event.name} special event cover artwork` : `${event.name} flyer artwork`;
+    artwork.append(img);
+    const details=make('div','event-tile-details');
+    details.append(make('h3','event-title',event.name),make('span','event-count',`${event.flyers.length} ${event.flyers.length===1?'flyer':'flyers'}`));
+    if(event.description) details.append(make('p','event-description',event.description));
+    button.append(artwork,details);
+    button.addEventListener('click',()=>{
+      state.event=event.name;state.query='';$('search').value='';
+      render();document.getElementById('gallery').scrollIntoView({block:'start'});
+    });
+    return button;
+  }
   function render() {
+    const eventIndex = state.category === 'Special Event' && state.event === 'all';
+    $('event-grid').hidden = !eventIndex;
+    $('flyer-grid').hidden = eventIndex;
+    $('event-navigation').hidden = !(!eventIndex && state.category==='Special Event');
+    if (eventIndex) {
+      const term=state.query;
+      const groups=eventCollections().filter(e=>!term||e.name.toLocaleLowerCase().includes(term)||e.flyers.some(f=>`${f.title} ${f.description||''}`.toLowerCase().includes(term)));
+      $('event-grid').replaceChildren(...groups.map(makeEventTile));
+      $('results-count').textContent=`${groups.length} ${groups.length===1?'event collection':'event collections'}`;
+      $('empty-state').hidden=groups.length>0;
+      if(!groups.length){$('empty-heading').textContent='No special event collections yet.';$('empty-description').textContent='Published Special Event flyers appear here under their event name.';}
+      return;
+    }
+    if(state.category==='Special Event' && state.event!=='all') $('active-event-name').textContent=state.event;
     const filtered = state.flyers.filter(f =>
       (state.category === 'all' || categoryOf(f) === state.category) &&
-      (state.event === 'all' || (categoryOf(f) === 'Special Event' && f.event_name === state.event)) &&
+      (state.event === 'all' || (categoryOf(f) === 'Special Event' && String(f.event_name||'').trim().toLocaleLowerCase() === state.event.toLocaleLowerCase())) &&
       (!state.query || `${f.title} ${f.description || ''} ${labelOf(f)}`.toLowerCase().includes(state.query))
     );
     filtered.sort((a, b) => {
@@ -88,14 +137,13 @@
       $('empty-heading').textContent = limited ? 'No matching flyers.' : 'Your flyer collection will appear here.';
       $('empty-description').textContent = limited
         ? 'Try a different category or search term.'
-        : 'Once you publish your custom flyers through Owner Access, they will fill this gallery. No demo posters are presented as your artwork.';
+        : 'Once you publish your custom flyers through Owner Access, they will fill this gallery.';
     }
   }
 
   document.querySelectorAll('[data-filter]').forEach(button => button.addEventListener('click', () => {
     state.category = button.dataset.filter;
-    state.event = 'all'; $('event-filter').value = 'all';
-    $('event-filter-wrap').hidden = state.category !== 'Special Event';
+    state.event = 'all';
     document.querySelectorAll('[data-filter]').forEach(item => {
       const active = item === button;
       item.classList.toggle('active', active);
@@ -103,13 +151,7 @@
     });
     render();
   }));
-  $('event-filter').addEventListener('change', event => { state.event = event.target.value; render(); });
-  function updateEvents() {
-    const select = $('event-filter');
-    const events = [...new Set(state.flyers.filter(f => categoryOf(f) === 'Special Event').map(f => String(f.event_name || '').trim()).filter(Boolean))].sort((a,b) => a.localeCompare(b));
-    select.replaceChildren(new Option('All events', 'all'), ...events.map(name => new Option(name, name)));
-    select.value = 'all'; state.event = 'all';
-  }
+  $('events-back').addEventListener('click',()=>{state.event='all';render();});
   $('search').addEventListener('input', event => { state.query = event.target.value.trim().toLowerCase(); render(); });
   $('sort').addEventListener('change', event => { state.sort = event.target.value; render(); });
 
@@ -126,7 +168,7 @@
       if (!response.ok) throw new Error(`Gallery API returned ${response.status}`);
       const data = await response.json();
       state.flyers = (Array.isArray(data.flyers) ? data.flyers : []).filter(f => f && f.image_id && typeof f.title === 'string');
-      updateEvents();
+      state.events = Array.isArray(data.events) ? data.events : [];
       if (data.settings?.hero_title) $('hero-heading').textContent = data.settings.hero_title;
       if (data.settings?.hero_description) $('hero-description').textContent = data.settings.hero_description;
       if (data.settings?.footer_note) $('footer-note').textContent = data.settings.footer_note;
