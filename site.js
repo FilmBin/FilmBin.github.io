@@ -36,6 +36,22 @@
     $('dialog-category').textContent = labelOf(flyer);
     $('dialog-description').textContent = flyer.description || '';
     $('dialog-description').hidden = !flyer.description;
+    const movies = Array.isArray(flyer.movies) ? flyer.movies.slice(0, 30) : [];
+    const list = $('dialog-movies');
+    list.replaceChildren();
+    movies.forEach((movie) => {
+      if (!Number.isSafeInteger(movie.tmdb_id) || movie.tmdb_id <= 0 || typeof movie.title !== 'string') return;
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = 'https://www.themoviedb.org/movie/' + movie.tmdb_id;
+      link.target = '_blank'; link.rel = 'noopener noreferrer';
+      link.textContent = movie.title + (Number.isInteger(movie.release_year) ? ` (${movie.release_year})` : '');
+      const icon = document.createElement('span');icon.className='ui-icon icon-external-link';icon.setAttribute('aria-hidden','true');
+      link.append(icon);item.append(link);list.append(item);
+    });
+    const count = list.children.length;
+    $('dialog-movies-section').hidden = count === 0;
+    $('dialog-movies-count').textContent = `${count} ${count === 1 ? 'MOVIE' : 'MOVIES'}`;
     $('dialog-original').href = imageUrl(flyer.image_id);
     modal.showModal();
   }

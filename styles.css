@@ -148,3 +148,21 @@ img{display:block;max-width:100%}
 .icon-home{--radix-icon:url("./assets/icons/home.svg")}
 .icon-arrow-right{--radix-icon:url("./assets/icons/arrow-right.svg")}
 .owner-link .ui-icon,.nav-gallery .ui-icon{width:14px;height:14px;flex-basis:14px;margin-right:5px}.search-label .ui-icon{width:17px;height:17px;flex-basis:17px}.events-back .ui-icon,.viewer-details a .ui-icon{margin-right:6px}.viewer-bar button .ui-icon{margin-left:7px}.event-tile .ui-icon{width:15px;height:15px}
+
+/* TMDB movie lineups inside the poster viewer. 30 titles scroll naturally with details. */
+.viewer-body{grid-template-columns:minmax(0,1fr) minmax(320px,360px)}
+.viewer-movies{width:100%;border-top:1px solid #333;padding:17px 0 19px;margin:4px 0 14px}
+.viewer-movies[hidden]{display:none}
+.viewer-movies-heading{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.viewer-movies-heading h3{margin:0;color:#e4e4e4;font-size:11px;font-weight:750;letter-spacing:.12em}
+.viewer-movies-heading span{color:#8d8d8d;font-size:10px;white-space:nowrap}
+.viewer-movie-list{list-style:decimal;list-style-position:outside;margin:0 0 0 23px;padding:0;counter-reset:movie}
+.viewer-movie-list li{padding:6px 0 9px 4px;color:#a7a7a7;font-size:13px;line-height:1.35}
+.viewer-movie-list li::marker{font-variant-numeric:tabular-nums;color:#777}
+.viewer-details .viewer-movie-list a{font-size:13px;display:inline-flex;align-items:baseline;gap:7px;max-width:100%;border:0;border-radius:2px;padding:0;color:#ededed;line-height:1.4;overflow-wrap:anywhere;text-decoration:none}
+.viewer-movie-list a:hover,.viewer-movie-list a:focus-visible{color:#f0626f;text-decoration:underline;text-underline-offset:3px}
+.viewer-movie-list .ui-icon{width:11px;height:11px;flex:0 0 11px;color:#8e8e8e}
+.footer-copy{min-width:0;max-width:560px}.footer-copy>p{margin:0}
+.tmdb-credit{display:flex;align-items:center;gap:8px;margin-top:8px!important;font-size:10px!important;line-height:1.5;color:#898989!important}
+.tmdb-credit a{flex:0 0 auto}.tmdb-credit img{display:block;object-fit:contain;width:32px;height:24px}
+@media(max-width:720px){.viewer-body{grid-template-columns:minmax(0,1fr)}.viewer-details{max-height:min(42vh,380px)}.viewer-movies{padding:12px 0}.viewer-details small{display:none}}
