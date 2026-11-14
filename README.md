@@ -1,5 +1,3 @@
- # FilmBin — Custom Movie Flyer Gallery
+# FilmBin
 
-Public gallery on GitHub Pages, published directly from `main / (root)`.
-
-Private Owner Dashboard and API, D1 and R2 remain on Cloudflare. No custom Actions workflows are used.
+Official custom movie flyer gallery. Public site only; Owner Access runs on Cloudflare. GitHub Pages publishes from `main / (root)` without a custom Actions workflow.

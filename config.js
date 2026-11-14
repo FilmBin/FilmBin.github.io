@@ -1,5 +1,5 @@
-// Public website URLs only. Never put passwords or API tokens here.
+// FilmBin public endpoints only. No passwords, secrets, or API tokens.
 window.FILMBIN_CONFIG = Object.freeze({
-  apiBase: "https://filmbin-next-api.filmbin.workers.dev",
-  ownerUrl: "https://filmbin-next-api.filmbin.workers.dev/"
+  apiBase: "https://filmbin-relaunch-api.filmbin.workers.dev",
+  ownerUrl: "https://filmbin-relaunch-api.filmbin.workers.dev/"
 });
